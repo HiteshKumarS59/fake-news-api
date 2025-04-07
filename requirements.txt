@@ -4,5 +4,8 @@ nltk
 scikit-learn
 langdetect
 deep-translator
-requests
 gunicorn
+pandas
+matplotlib
+seaborn
+requests
