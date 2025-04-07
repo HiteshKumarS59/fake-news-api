@@ -1,14 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import pickle, requests, re, nltk
 from nltk.corpus import stopwords
 
 app = Flask(__name__)
-CORS(app)
+CORS(app)  # Optional: Only needed if frontend is on different domain
 
 # Load model and vectorizer
-with open("fake_news_model.pkl", "rb") as f: model = pickle.load(f)
-with open("vectorizer.pkl", "rb") as f: vectorizer = pickle.load(f)
+with open("fake_news_model.pkl", "rb") as f:
+    model = pickle.load(f)
+with open("vectorizer.pkl", "rb") as f:
+    vectorizer = pickle.load(f)
 
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english'))
@@ -27,7 +29,7 @@ def get_real_news_sources():
 
 @app.route('/')
 def home():
-    return "✅ Fake News Detection API is running!"
+    return render_template('index.html')  # Serve your frontend page
 
 @app.route('/predict', methods=['POST'])
 def predict():
